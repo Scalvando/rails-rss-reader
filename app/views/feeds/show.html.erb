@@ -7,7 +7,8 @@
   </p>
   URL
   <%= @feed.url%>
-  <%= button_to 'Sync', sync_feed_path, method: :get, class: 'btn btn-primary' %>
+  <%= link_to 'Back to Feeds', feeds_path, class: "btn btn-primary"%>
+  <%= link_to 'Sync', sync_feed_path, method: :get, class: 'btn btn-primary' %>
 
   <% @entries.each do |entry| %>
   <div class="card">
