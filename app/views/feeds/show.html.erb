@@ -8,31 +8,7 @@
   URL
   <%= @feed.url%>
   <%= link_to 'Back to Feeds', feeds_path, class: "btn btn-primary"%>
-  <%= link_to 'Sync', sync_feed_path, method: :get, class: 'btn btn-primary' %>
+  <%= link_to 'Sync', sync_feed_path, method: :get, class: 'btn btn-primary' %> 
 
-  <% @entries.each do |entry| %>
-  <div class="card">
-    <% if entry.image %>
-    <%= image_tag entry.image, alt: entry.title, class: "card-img-top" %>
-    <% end %>
-    <div class="card-body">
-      <h5 class="card-title">
-        <%= entry.title %>
-      </h5>
-      <% if entry.author %>
-      <h6 class="card-subtitle mb-2 text-muted">
-        <%= entry.author %>
-      </h6>
-      <% end %>
-      <p class="card-text">
-        <%= entry.summary.html_safe %>
-      </p>
-
-      <%= link_to "Go to Article", entry.url, class: "card-link" %>
-    </div>
-    <div class="card-footer text-muted">
-      <%= time_ago_in_words(entry.published) %> ago
-    </div>
-  </div>
-  <% end %>
+  <%= render "shared/entries" %>
 </div>

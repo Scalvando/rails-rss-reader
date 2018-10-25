@@ -1,0 +1,30 @@
+<% @entries.each do |entry| %>
+  <div class="card">
+    <% if entry.image %>
+    <%= image_tag entry.image, alt: entry.title, class: "card-img-top" %>
+    <% end %>
+    <div class="card-header">
+      <%= @feed != entry.feed ? link_to(entry.feed.title, entry.feed) : entry.feed.title %>
+      <div class="float-right text-muted">
+        <%= time_ago_in_words(entry.published) %> ago
+      </div>
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">
+        <%= entry.title %>
+      </h5>
+      <% if entry.author %>
+      <h6 class="card-subtitle mb-2 text-muted">
+        <%= entry.author %>
+      </h6>
+      <% end %>
+      <p class="card-text">
+        <%= entry.summary.html_safe %>
+      </p>
+    </div>
+    <div class="card-footer text-muted">
+      <%= link_to "Go to Article", entry.url, target: "_blank", class: "card-link float-right" %>
+    </div>
+  </div>
+  <br />
+<% end %>
