@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
 class EntriesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_entry, only: [:save, :destroy]
-
+  before_action :set_feeds, only: [:index, :sync]
+  before_action :set_entries, only: [:save, :saved, :destroy]
   def index
-    @feeds = current_user.feeds.all
     @entries = []
     @feeds.each do |feed|
       @entries.concat(feed.entries.all.order('published desc'))
@@ -14,7 +15,7 @@ class EntriesController < ApplicationController
   end
 
   def sync
-    if @feeds.each(&:sync)
+    if @feeds.all.each(&:sync)
       redirect_to entries_path, notice: "Feeds updated"
     end
   end
@@ -24,13 +25,13 @@ class EntriesController < ApplicationController
   end
 
   def save
-    current_user.entries << @entry
+    @entries << @entry
     flash[:success] = "Article successfully saved"
     redirect_back fallback_location: root_path
   end
 
   def destroy
-    if current_user.entries.delete(@entry)
+    if @entries.delete(@entry)
       redirect_to saved_entries_path, notice: "Article successfully deleted"
     end
   end
@@ -38,10 +39,18 @@ class EntriesController < ApplicationController
   private
 
   def set_saved_entry
-    @entry = current_user.entries.find(params[:id])
+    @entry = @entries.find(params[:id])
   end
 
   def set_entry
     @entry = Entry.find(params[:id])
+  end
+
+  def set_feeds
+    @feeds = current_user.feeds
+  end
+
+  def set_entries
+    @entries = current_user.entries
   end
 end

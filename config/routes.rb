@@ -18,6 +18,7 @@ Rails.application.routes.draw do
       post :save
     end
     collection do
+      get :sync
       get :saved
     end
   end
