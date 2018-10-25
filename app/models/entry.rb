@@ -3,5 +3,6 @@
 class Entry < ApplicationRecord
   belongs_to :feed
 
-  has_and_belongs_to_many :users
+  has_many :user_entries, dependent: :destroy
+  has_many :users, through: :user_entries
 end

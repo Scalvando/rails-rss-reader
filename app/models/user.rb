@@ -9,6 +9,8 @@ class User < ApplicationRecord
     :rememberable,
     :validatable
 
-  has_and_belongs_to_many :feeds
-  has_and_belongs_to_many :entries
+  has_many :user_feeds, dependent: :destroy
+  has_many :user_entries, dependent: :destroy
+  has_many :feeds, through: :user_feeds
+  has_many :entries, through: :user_entries
 end
