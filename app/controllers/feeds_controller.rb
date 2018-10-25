@@ -2,17 +2,25 @@
 require 'feedjira'
 
 class FeedsController < ApplicationController
-  before_action :set_feed, only: [:show, :destroy]
+  before_action :set_feed, only: [:show, :destroy, :sync]
 
   def index
     @feeds = current_user.feeds.all
   end
 
   def show
+    @entries = @feed.entries.order('published desc')
   end
 
   def new
     @feed = Feed.new
+  end
+
+  def sync
+    puts @feed
+    if @feed.sync
+      redirect_to feed_path, notice: "Feed updated"
+    end
   end
 
   def create
