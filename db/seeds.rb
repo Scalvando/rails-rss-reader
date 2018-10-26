@@ -15,7 +15,7 @@ User.create!([
 
 puts 'Users creates'
 
-feed_urls = ['http://feeds.bbci.co.uk/news/world/rss.xml', 'http://feeds.reuters.com/Reuters/worldNews']
+feed_urls = ['https://feeds.bbci.co.uk/news/world/rss.xml', 'https://www.theregister.co.uk/security/headlines.atom']
 
 feed_urls.each do |feed_url|
   content = Feedjira::Feed.fetch_and_parse(feed_url)

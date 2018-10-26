@@ -22,18 +22,18 @@ class EntriesController < ApplicationController
   end
 
   def saved
-    @entries = current_user.entries.all.order('published desc')
+    @entries = @entries.all.order('published desc')
   end
 
   def save
-    @entries << @entry
-    flash[:success] = "Article successfully saved"
-    redirect_back fallback_location: root_path
+    if @entries << @entry
+      redirect_back fallback_location: root_path, notice: "Article saved"
+    end
   end
 
   def destroy
     if @entries.delete(@entry)
-      redirect_to saved_entries_path, notice: "Article successfully deleted"
+      redirect_to saved_entries_path, notice: "Article deleted"
     end
   end
 

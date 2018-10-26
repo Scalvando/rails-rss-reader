@@ -10,12 +10,12 @@
     </div>
   </div>
   <div class="card-body">
-    <h5 class="card-title">
-      <%= entry.title %>
-    </h5>
+    <h4 class="card-title">
+      <%= entry.title.html_safe %>
+    </h4>
     <% if entry.author %>
     <h6 class="card-subtitle mb-2 text-muted">
-      <%= entry.author %>
+      by <%= entry.author %>
     </h6>
     <% end %>
     <p class="card-text">

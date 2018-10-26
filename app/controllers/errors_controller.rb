@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ErrorsController < ApplicationController
-  def error_404
+  def not_found
     render 'errors/not_found'
   end
 end

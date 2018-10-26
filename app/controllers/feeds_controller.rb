@@ -26,31 +26,30 @@ class FeedsController < ApplicationController
 
   def create
     if @user_feeds.find_by_url(feed_params[:url])
-      redirect_to feeds_url, alert: "Subscription exits"
+      redirect_to feeds_url, alert: "Subscription already exists"
     else
       feed = Feed.find_by_url(feed_params[:url])
 
       unless feed
-        rss_feed = Feedjira::Feed.fetch_and_parse(feed_params[:url])
+        content = Feedjira::Feed.fetch_and_parse(feed_params[:url])
 
         new_feed = @user_feeds.build(
           url: feed_params[:url],
-          title: rss_feed.title,
-          description: rss_feed.description
+          title: content.title,
+          description: content.description
         )
 
         feed = new_feed if new_feed.save
       end
 
       @user_feeds << feed
-      redirect_to feeds_url, notice: "Feed successfully added"
+      redirect_to feeds_url, notice: "Feed added"
     end
   end
 
   def destroy
-    if @user_feeds.delete(Feed.find(@feed.id))
-      redirect_to feeds_url, notice: "Feed successfully deleted"
-
+    if @user_feeds.delete(@user_feeds.find(@feed.id))
+      redirect_to feeds_url, notice: "Feed deleted"
     end
   end
 
