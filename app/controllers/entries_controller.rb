@@ -5,6 +5,7 @@ class EntriesController < ApplicationController
   before_action :set_entry, only: [:save, :destroy]
   before_action :set_feeds, only: [:index, :sync]
   before_action :set_entries, only: [:save, :saved, :destroy]
+
   def index
     @entries = []
     @feeds.each do |feed|
