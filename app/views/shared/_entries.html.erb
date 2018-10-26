@@ -23,8 +23,8 @@
     </p>
   </div>
   <div class="card-footer text-muted">
-    <%= link_to "Go to Article", entry.url, target: "_blank", class: "card-link" %>
-    <%= current_user.entries.exists?(entry.id) ? link_to("Delete", entry, method: :delete ,class: "btn btn-danger float-right") : link_to("Save", save_entry_path(entry), method: :post ,class: "btn btn-primary float-right")%>
+    <%= current_user.entries.exists?(entry.id) ? link_to("Delete", entry, method: :delete ,class: "btn btn-danger") : link_to("Save", save_entry_path(entry), method: :post ,class: "btn btn-success")%>
+    <%= link_to "Go to Article", entry.url, target: "_blank", class: "btn btn-light float-right" %>
   </div>
 </div>
 <br />

@@ -1,14 +1,20 @@
-<div class="container">
-  <h1>
-    <%= @feed.title%>
-  </h1>
-  <p>
-    <%= @feed.description%>
-  </p>
-  URL
-  <%= @feed.url%>
-  <%= link_to 'Back to Feeds', feeds_path, class: "btn btn-primary"%>
-  <%= link_to 'Sync', sync_feed_path, method: :get, class: 'btn btn-primary' %> 
-
-  <%= render "shared/entries" %>
+<div class="row">
+  <div class="col-xs-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+    <div>
+      <h1>
+        <%= @feed.title%>
+      </h1>
+      <small>
+        <%= @feed.url%></small>
+      <p>
+        <%= @feed.description%>
+      </p>
+    </div>
+    <div>
+      <%= link_to 'Back to Feeds', feeds_path, class: "btn btn-secondary"%>
+      <%= link_to 'Sync', sync_feed_path, method: :get, class: 'btn btn-success float-right' %>
+    </div>
+    <hr />
+    <%= render "shared/entries" %>
+  </div>
 </div>

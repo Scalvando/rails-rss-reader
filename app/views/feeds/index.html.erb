@@ -1,37 +1,11 @@
-<h1>Feeds</h1>
-
-<%= link_to 'New Feed', new_feed_path %>
-
-<br>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Url</th>
-      <th>Description</th>
-      <th colspan="2"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @feeds.each do |feed| %>
-    <tr>
-      <td>
-        <%= feed.title %>
-      </td>
-      <td>
-        <%= feed.url %>
-      </td>
-      <td>
-        <%= feed.description %>
-      </td>
-      <td>
-        <%= link_to 'Show', feed %>
-      </td>
-      <td>
-        <%= link_to 'Destroy', feed, method: :delete, data: { confirm: 'Are you sure?' } %>
-      </td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="row">
+  <div class="col-xs-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+    <h1>Feeds</h1>
+    <hr />
+    <div class="text-right">
+      <%= link_to 'Add Feed', new_feed_path, class: "btn btn-success" %>
+    </div>
+    <br>
+    <%= render "feeds" %>
+  </div>
+</div>

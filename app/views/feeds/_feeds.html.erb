@@ -1,0 +1,14 @@
+<div class="list-group">
+  <% @feeds.each do |feed| %>
+  <div class="list-group-item">
+    <h5><%= feed.title %></h5>
+
+    <small><%= feed.url %></small>
+
+    <p><%= feed.description %></p>
+
+    <%= link_to 'Delete', feed, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+    <%= link_to 'View', feed, class: "btn btn-primary float-right"%>
+  </div>
+  <% end %>
+</div>
