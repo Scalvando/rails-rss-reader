@@ -56,3 +56,9 @@ Things I'd like to add:
 
 * a Dockerfile for deployment
 
+* Pagination
+
+* Searching
+
+* Filtering
+
