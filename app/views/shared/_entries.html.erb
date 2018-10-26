@@ -4,7 +4,7 @@
   <%= image_tag entry.image, alt: entry.title, class: "card-img-top" %>
   <% end %>
   <div class="card-header">
-    <%= @feed != entry.feed ? link_to(entry.feed.title, entry.feed) : entry.feed.title %>
+    <%= @feed == nil && current_user.feeds.find_by_id(entry.feed.id) ? link_to(entry.feed.title, entry.feed) : entry.feed.title %>
     <div class="float-right text-muted">
       <%= time_ago_in_words(entry.published) %> ago
     </div>

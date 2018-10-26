@@ -23,5 +23,5 @@ Rails.application.routes.draw do
     end
   end
 
-  get '*path', to: 'errors#error_404', via: :all
+  get '*path', to: 'errors#not_found', via: :all
 end
