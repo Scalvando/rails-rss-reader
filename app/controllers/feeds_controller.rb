@@ -4,10 +4,10 @@ require 'feedjira'
 class FeedsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_feed, only: [:show, :destroy, :sync]
-  before_action :set_user_feeds, only: [:index, :create, :destroy]
+  before_action :set_feeds, only: [:index, :create, :destroy]
 
   def index
-    @feeds = @user_feeds.all
+    @feeds = @feeds.all
   end
 
   def show
@@ -25,30 +25,35 @@ class FeedsController < ApplicationController
   end
 
   def create
-    if @user_feeds.find_by_url(feed_params[:url])
+    if @feeds.find_by_url(feed_params[:url])
       redirect_to feeds_url, alert: "Subscription already exists"
-    else
-      feed = Feed.find_by_url(feed_params[:url])
+      return
+    end
+    feed = Feed.find_by_url(feed_params[:url])
 
-      unless feed
+    unless feed
+      begin
         content = Feedjira::Feed.fetch_and_parse(feed_params[:url])
 
-        new_feed = @user_feeds.build(
+        new_feed = @feeds.build(
           url: feed_params[:url],
           title: content.title,
           description: content.description
         )
 
         feed = new_feed if new_feed.save
+      rescue
+        redirect_to feeds_url, alert: "Could not parse feed"
+        return
       end
-
-      @user_feeds << feed
-      redirect_to feeds_url, notice: "Feed added"
     end
+
+    @feeds << feed
+    redirect_to feeds_url, notice: "Feed added"
   end
 
   def destroy
-    if @user_feeds.delete(@user_feeds.find(@feed.id))
+    if @feeds.delete(@feeds.find(@feed.id))
       redirect_to feeds_url, notice: "Feed deleted"
     end
   end
@@ -59,8 +64,8 @@ class FeedsController < ApplicationController
     @feed = current_user.feeds.find(params[:id])
   end
 
-  def set_user_feeds
-    @user_feeds = current_user.feeds
+  def set_feeds
+    @feeds = current_user.feeds
   end
 
   def feed_params
