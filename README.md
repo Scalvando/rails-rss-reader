@@ -10,6 +10,9 @@ What is this thing?
 
 This repository is my first crack at implementing a Rails application. I figured that if I was going to build something that it might as well be something that I would actually use. As a result, here is an RSS reader that I made. 
 
+Features
+--------
+
 There is still a lot of work to be done but so far you can:
 
 * Add an RSS or Atom feed
@@ -23,6 +26,9 @@ There is still a lot of work to be done but so far you can:
 * Do this all with your own account
 
 I built this with a PostgeSQL database in mind.
+
+Future Additions
+----------------
 
 Things I'd like to add:
 
